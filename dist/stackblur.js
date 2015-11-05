@@ -78,7 +78,7 @@ var shg_table = [
     24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24 ];
 
 
-function processImage(img, canvas, radius, blurAlphaChannel)
+function processImage(img, canvas, radius, blurAlphaChannel, posX, posY, canvasWidth, canvasHeight)
 {
     if (typeof(img) == 'string') {
         var img = document.getElementById(img);
@@ -86,6 +86,7 @@ function processImage(img, canvas, radius, blurAlphaChannel)
     else if (!img instanceof HTMLImageElement) {
         return;
     }
+
     var w = img.naturalWidth;
     var h = img.naturalHeight;
 
@@ -96,6 +97,19 @@ function processImage(img, canvas, radius, blurAlphaChannel)
         return;
     }
 
+
+    blurAlphaChannel = blurAlphaChannel || true;
+    radius = radius || 20;
+    posX = posX || 0;
+    posY = posY || 0;
+
+    w = canvasWidth || w;
+    h = canvasHeight || h;
+
+    canvas.style.position = 'absolute';
+    canvas.style.left = posX + 'px';
+    canvas.style.top = posY + 'px';
+
     canvas.style.width  = w + 'px';
     canvas.style.height = h + 'px';
     canvas.width = w;
@@ -104,11 +118,13 @@ function processImage(img, canvas, radius, blurAlphaChannel)
     var context = canvas.getContext('2d');
     context.clearRect(0, 0, w, h);
     context.drawImage(img, 0, 0);
+    context.drawImage(img, posX, posY, w, h, 0, 0, w, h);
 
     if (isNaN(radius) || radius < 1) return;
 
     if (blurAlphaChannel)
         processCanvasRGBA(canvas, 0, 0, w, h, radius);
+
     else
         processCanvasRGB(canvas, 0, 0, w, h, radius);
 }

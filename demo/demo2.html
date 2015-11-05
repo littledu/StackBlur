@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no">
+    <title></title>
+    <style>
+        .box{
+            position: relative;
+            width: 480px;
+            height: 510px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <img id="Jimage" src="image.jpg" alt=""/>
+    <canvas id="Jcanvas"></canvas>
+</div>
+
+<script src="../dist/stackblur.js"></script>
+<script>
+    window.onload = function(){
+        StackBlur.image('Jimage', 'Jcanvas', 50, true, 0, 240, 480, 270, 480, 270);
+    }
+</script>
+</body>
+</html>

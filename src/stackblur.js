@@ -95,6 +95,28 @@ function processImage(img, canvas, radius, blurAlphaChannel)
         return;
     }
 
+    blurAlphaChannel = blurAlphaChannel || true;
+    radius = radius || 20;
+    posX = posX || 0;
+    posY = posY || 0;
+
+    w = canvasWidth || w;
+    h = canvasHeight || h;
+
+    canvas.style.position = 'absolute';
+    canvas.style.left = posX + 'px';
+    canvas.style.top = posY + 'px';
+
+    canvas.style.width  = w + 'px';
+    canvas.style.height = h + 'px';
+    canvas.width = w;
+    canvas.height = h;
+
+    var context = canvas.getContext('2d');
+    context.clearRect(0, 0, w, h);
+    context.drawImage(img, 0, 0);
+    context.drawImage(img, posX, posY, w, h, 0, 0, w, h);
+
     canvas.style.width  = w + 'px';
     canvas.style.height = h + 'px';
     canvas.width = w;
